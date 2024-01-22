@@ -67,11 +67,14 @@ const Home = () => {
     }
 
     const getBackgroundClass = (temp) => {
-        if (temp < 0) {
+        if (temp < 10) {
             return 'snowy';
-        } else if (temp < 20) {
+        } else if (10 < temp < 20) {
             return 'cloudy';
-        } else {
+        } else if (20 < temp < 30) {
+            return 'sunny';
+        }
+        else {
             return 'rainy';
         }
     }
@@ -91,10 +94,10 @@ const Home = () => {
             setHottestDestination(hottest);
             setColdestDestination(coldest);
         }
-    }, searchList)
+    }, [searchList])
 
     return (
-        <div className={weatherData ? getBackgroundClass(weatherData.main.temp) : ''} >
+        <div className={weatherData ? `bg ${getBackgroundClass(weatherData.main.temp)}` : 'bg'} >
             <div className='flex justify-center p-5'>
                 <input
                     className='me-3 input text-white w-1/2 bg-transparent border-b-2 border-white focus:outline-none focus:border-blue-500'
@@ -112,31 +115,31 @@ const Home = () => {
 
             {
                 searchList.length > 0 && <div className='flex justify-center'>
-                    <div className='text-white font-bold text-2xl'>Search History</div>
-                    <div className='text-white font-bold text-2xl'>City</div>
-                    <div className='text-white font-bold text-2xl'>Temperature</div>
+                    <div className='text-white font-bold'>Search History</div>
+                    <div className='text-white font-bold'>City</div>
+                    <div className='text-white font-bold'>Temperature</div>
 
                     <li>
                         {searchList.map((item) => (
                             <div className='flex justify-center'>
-                                <div className='text-white font-bold text-2xl'>{item.city}</div>
-                                <div className='text-white font-bold text-2xl'>{item.temp}</div>
+                                <div className='text-white font-bold'>{item.city}</div>
+                                <div className='text-white font-bold'>{item.temp}</div>
                             </div>
                         ))}
 
 
                     </li>
-                    <div className='text-white font-bold text-2xl'>🏖️ Hottest destination: {hottestDestination}</div>
-                    <div className='text-white font-bold text-2xl'>⛄️ Coldest destination: {coldestDestination}</div>
+                    <div className='text-white font-bold'>🏖️ Hottest destination: {hottestDestination}</div>
+                    <div className='text-white font-bold'>⛄️ Coldest destination: {coldestDestination}</div>
                 </div>
             }
 
-
-            <div>
-                {location.lat && <div>Latitude: {location.lat}</div>}
+            <div className='flex items-center'>
+                {loading && <div>Loading...</div>}
             </div>
-            {loading && <div>Loading...</div>}
-            {error && <div>{error}</div>}
+            <div className='flex items-center'>
+                {error && <div>{error}</div>}
+            </div>
             {weatherData && <WeatherComp weatherData={weatherData} />}
         </div>
     )
