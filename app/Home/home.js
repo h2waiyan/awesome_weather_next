@@ -115,9 +115,9 @@ const Home = () => {
                 <div className='w-full sm:w-1/2 md:w-1/2'>                    {
                     hottestDestination && coldestDestination && hottestDestination != coldestDestination &&
                     <div className='flex flex-col sm:flex-row md:flex-row items-center sm:justify-between md:justify-between mb-3'>
-                        <div className='text-xs sm:text-base md:text-md lg:text-lg shadow-md text-white font-bold'>🏖️ Hottest destination: {hottestDestination.city} {hottestDestination.temp} °C</div>
+                        <div className='text-xs sm:text-base md:text-md lg:text-lg drop-shadow-md text-white font-bold'>🏖️ Hottest destination: {hottestDestination.city} {hottestDestination.temp} °C</div>
 
-                        <div className='text-xs sm:text-base md:text-md lg:text-lg shadow-md text-white font-bold'>⛄️ Coldest destination: {coldestDestination.city} {coldestDestination.temp} °C</div>
+                        <div className='text-xs sm:text-base md:text-md lg:text-lg drop-shadow-md text-white font-bold'>⛄️ Coldest destination: {coldestDestination.city} {coldestDestination.temp} °C</div>
 
                     </div>
                 }
