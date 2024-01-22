@@ -1,0 +1,33 @@
+.sunny {
+    background-image: url("../../public/sunny.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.rainy {
+    background-image: url("../../public/rainy.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+
+.cloudy {
+    background-image: url("../../public/cloudy.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.snowy {
+    background-image: url("../../public/snowy.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+
+}
