@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './searchHistory.css';
+import './SearchHistory.css';
 const SearchHistory = (searchHistory) => {
 
     const searchList = searchHistory.searchList;
