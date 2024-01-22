@@ -8,6 +8,8 @@ const WeatherComp = (weatherData) => {
 
             <h1 className='text-white font-bold text-xl drop-shadow-md'>{weather['name']}</h1>
 
+            <img src={`http://openweathermap.org/img/w/${weather['weather'][0]['icon']}.png`} alt="wthr img" />
+
             <h1 className='text-white font-bold text-3xl drop-shadow-md'>{`${weather['weather'][0]['description'].charAt(0).toUpperCase()}${weather['weather'][0]['description'].slice(1)}`}</h1>
 
             <h1 className='text-white font-bold text-6xl drop-shadow-md'>{weather['main']['temp']} °C</h1>
