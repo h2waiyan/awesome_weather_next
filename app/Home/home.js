@@ -6,6 +6,7 @@ import './home.css';
 import WeatherComp from '../WeatherComp/weather';
 import SearchHistory from '../SearchHistory/SearchHistory';
 
+
 const Home = () => {
 
     const [city, setCity] = useState('');
