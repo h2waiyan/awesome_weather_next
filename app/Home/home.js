@@ -12,13 +12,11 @@ import { AiOutlineUp } from "react-icons/ai";
 const Home = () => {
 
     const [city, setCity] = useState('');
-    const [location, setLocation] = useState({ lat: null, lon: null });
     const [weatherData, setWeatherData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     const [showHistory, setShowHistory] = useState(false);
-
     const [searchList, setSearchList] = useState([]);
 
     const [hottestDestination, setHottestDestination] = useState(null);
@@ -26,7 +24,6 @@ const Home = () => {
 
     useEffect(() => {
         if (searchList.length > 0) {
-            console.log('searchList:', searchList);
             let hottest = searchList[0];
             let coldest = searchList[0];
             searchList.forEach((item) => {
@@ -37,8 +34,6 @@ const Home = () => {
                     coldest = item;
                 }
             })
-            console.log('hottest:', hottest);
-            console.log('coldest:', coldest);
             setHottestDestination(hottest);
             setColdestDestination(coldest);
         }
@@ -48,15 +43,11 @@ const Home = () => {
         if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                    // On success, set the latitude and longitude in the state
-                    setLocation({
-                        lat: position.coords.latitude,
-                        lon: position.coords.longitude,
-                    });
 
                     axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=32ad84d2a41f15df8af1a765bb38c530&units=metric`)
                         .then((res) => {
                             setWeatherData(res.data);
+                            setError(null);
                         })
                         .catch((err) => {
                             setError(err.message);
@@ -65,7 +56,10 @@ const Home = () => {
                         })
                 },
                 (error) => {
-                    alert('Error getting location:', error.message);
+                    setError("Something went wrong.");
+                    setTimeout(() => {
+                        setError(null);
+                    }, 2000);
                 }
             );
         } else {
@@ -133,7 +127,7 @@ const Home = () => {
 
                 <div className='flex justify-center mb-5 w-full'>
                     <input
-                        className='w-1/2 me-3 input shadow text-white bg-transparent border-b-2 border-white focus:outline-none focus:border-blue-500'
+                        className='w-1/2 me-3 input text-white bg-transparent border-b-2 border-white focus:outline-none focus:border-blue-500'
                         type="text"
                         placeholder='Enter your city'
                         value={city}
