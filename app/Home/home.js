@@ -112,18 +112,20 @@ const Home = () => {
     return (
         <div className={weatherData ? `bg ${getBackgroundClass(weatherData.main.temp)}` : 'bg'} >
             <div className='flex flex-col justify-center items-center pt-5'>
+                <div className='w-1/2'>
+                    {
+                        hottestDestination && coldestDestination && hottestDestination != coldestDestination &&
+                        <div className='flex flex-row justify-between mb-3'>
 
-                {
-                    hottestDestination && coldestDestination && hottestDestination != coldestDestination &&
-                    <div className='flex flex-row justify-between mb-3'>
-
-                        <div className='text-white font-bold'>🏖️ Hottest destination: {hottestDestination.city} {hottestDestination.temp} °C</div>
+                            <div className='text-white font-bold'>🏖️ Hottest destination: {hottestDestination.city} {hottestDestination.temp} °C</div>
 
 
-                        <div className='text-white font-bold'>⛄️ Coldest destination: {coldestDestination.city} {coldestDestination.temp} °C</div>
+                            <div className='text-white font-bold'>⛄️ Coldest destination: {coldestDestination.city} {coldestDestination.temp} °C</div>
 
-                    </div>
-                }
+                        </div>
+                    }
+
+                </div>
 
                 <div className='flex justify-center mb-5 w-full'>
                     <input

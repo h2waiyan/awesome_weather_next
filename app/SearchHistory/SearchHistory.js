@@ -15,7 +15,7 @@ const SearchHistory = (searchHistory) => {
                             {searchList.map((item, index) => (
                                 <tr key={index}>
                                     <td className='text-white w-64'>{item.city}</td>
-                                    <td className='text-white w-64'>{item.temp} °C</td>
+                                    <td className='text-white'>{item.temp} °C</td>
                                 </tr>
                             ))}
                         </tbody>

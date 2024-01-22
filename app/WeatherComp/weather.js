@@ -6,11 +6,12 @@ const WeatherComp = (weatherData) => {
     return (
         <div className='flex flex-col justify-center items-center content-center'>
 
-            <h1 className='text-white font-bold text-3xl drop-shadow-md'>{weather['name']}</h1>
+            <h1 className='text-white font-bold text-xl drop-shadow-md'>{weather['name']}</h1>
 
-            <h1 className='text-white font-bold text-6xl drop-shadow-md'>{`${weather['weather'][0]['description'].charAt(0).toUpperCase()}${weather['weather'][0]['description'].slice(1)}`}</h1>
+            <h1 className='text-white font-bold text-3xl drop-shadow-md'>{`${weather['weather'][0]['description'].charAt(0).toUpperCase()}${weather['weather'][0]['description'].slice(1)}`}</h1>
 
-            <h1 className='text-white font-bold text-3xl drop-shadow-md'>{weather['main']['temp']} °C</h1>
+            <h1 className='text-white font-bold text-6xl drop-shadow-md'>{weather['main']['temp']} °C</h1>
+            <h1 className='text-white font-bold text-xl drop-shadow-md'>Humidity : {weather['main']['humidity']} </h1>
         </div >
     )
 }
