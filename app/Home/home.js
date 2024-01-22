@@ -5,6 +5,7 @@ import axios from 'axios';
 import './home.css';
 import WeatherComp from '../WeatherComp/weather';
 import SearchHistory from '../SearchHistory/SearchHistory';
+import Loading from '../Loading/loading';
 import { AiOutlineDown } from "react-icons/ai";
 import { AiOutlineUp } from "react-icons/ai";
 
@@ -115,9 +116,9 @@ const Home = () => {
                 <div className='w-full sm:w-1/2 md:w-1/2'>                    {
                     hottestDestination && coldestDestination && hottestDestination != coldestDestination &&
                     <div className='flex flex-col sm:flex-row md:flex-row items-center sm:justify-between md:justify-between mb-3'>
-                        <div className='text-xs sm:text-base md:text-md lg:text-lg drop-shadow-md text-white font-bold'>🏖️ Hottest destination: {hottestDestination.city} {hottestDestination.temp} °C</div>
+                        <div className='text-xs sm:text-base md:text-md lg:text-lg drop-shadow-lg text-white  font-bold'>🏖️ Hottest destination: {hottestDestination.city} {hottestDestination.temp} °C</div>
 
-                        <div className='text-xs sm:text-base md:text-md lg:text-lg drop-shadow-md text-white font-bold'>⛄️ Coldest destination: {coldestDestination.city} {coldestDestination.temp} °C</div>
+                        <div className='text-xs sm:text-base md:text-md lg:text-lg drop-shadow-lg text-white font-bold'>⛄️ Coldest destination: {coldestDestination.city} {coldestDestination.temp} °C</div>
 
                     </div>
                 }
@@ -126,7 +127,7 @@ const Home = () => {
 
                 <div className='flex justify-center mb-5 w-full'>
                     <input
-                        className='w-1/2 me-3 input text-white bg-transparent border-b-2 border-white focus:outline-none focus:border-blue-500'
+                        className='w-1/2 me-3 input text-black bg-transparent border-b-2 border-white focus:outline-none focus:border-blue-500'
                         type="text"
                         placeholder='Enter your city'
                         value={city}
@@ -150,17 +151,24 @@ const Home = () => {
 
                 </div>
 
-                <div className='flex items-center'>
-                    {loading && <div>Loading...</div>}
-                </div>
-                <div className='flex items-center'>
-                    {error && <div>{error}</div>}
-                </div>
+
+
             </div>
 
             {
                 showHistory && <div className='flex justify-center'>
                     {searchList.length > 0 && <SearchHistory searchList={searchList} />}
+                </div>
+            }
+
+            {
+                (loading || error) && <div className='h-4/5 flex justify-center'>
+                    <div className='flex items-center'>
+                        {loading && <Loading />}
+                    </div>
+                    <div className='flex items-center'>
+                        {error && <div>{error}</div>}
+                    </div>
                 </div>
             }
 

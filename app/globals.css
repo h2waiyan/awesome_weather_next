@@ -17,6 +17,7 @@
 }
 
 body {
+  text-shadow: -0.5px 0 rgb(112, 112, 112), 0 0.5px rgb(112, 112, 112), 0.5px 0 rgb(112, 112, 112), 0 -0.5px rgb(112, 112, 112) !important;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
