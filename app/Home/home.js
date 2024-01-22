@@ -5,6 +5,8 @@ import axios from 'axios';
 import './home.css';
 import WeatherComp from '../WeatherComp/weather';
 import SearchHistory from '../SearchHistory/SearchHistory';
+import { AiOutlineDown } from "react-icons/ai";
+import { AiOutlineUp } from "react-icons/ai";
 
 
 const Home = () => {
@@ -18,6 +20,29 @@ const Home = () => {
     const [showHistory, setShowHistory] = useState(false);
 
     const [searchList, setSearchList] = useState([]);
+
+    const [hottestDestination, setHottestDestination] = useState(null);
+    const [coldestDestination, setColdestDestination] = useState(null);
+
+    useEffect(() => {
+        if (searchList.length > 0) {
+            console.log('searchList:', searchList);
+            let hottest = searchList[0];
+            let coldest = searchList[0];
+            searchList.forEach((item) => {
+                if (item.temp > hottest.temp) {
+                    hottest = item;
+                }
+                if (item.temp < coldest.temp) {
+                    coldest = item;
+                }
+            })
+            console.log('hottest:', hottest);
+            console.log('coldest:', coldest);
+            setHottestDestination(hottest);
+            setColdestDestination(coldest);
+        }
+    }, [searchList])
 
     useEffect(() => {
         if ('geolocation' in navigator) {
@@ -60,9 +85,20 @@ const Home = () => {
                 setSearchList([...searchList, { city, temp: res.data.main.temp }]);
             })
             .catch((err) => {
-                setError(err.message);
+                if (err.response.status == '404') {
+                    setError("City Not Found");
+                    setTimeout(() => {
+                        setError(null);
+                    }, 2000);
+                } else {
+                    setError("Something went wrong.");
+                    setTimeout(() => {
+                        setError(null);
+                    }, 2000);
+                }
             }).finally(() => {
                 setLoading(false);
+                setCity("")
             })
     }
 
@@ -81,10 +117,23 @@ const Home = () => {
 
     return (
         <div className={weatherData ? `bg ${getBackgroundClass(weatherData.main.temp)}` : 'bg'} >
-            <div className='flex flex-col justify-center items-center p-5'>
+            <div className='flex flex-col justify-center items-center pt-5'>
+
+                {
+                    hottestDestination && coldestDestination && hottestDestination != coldestDestination &&
+                    <div className='flex flex-row justify-between mb-3'>
+
+                        <div className='text-white font-bold'>🏖️ Hottest destination: {hottestDestination.city} {hottestDestination.temp} °C</div>
+
+
+                        <div className='text-white font-bold'>⛄️ Coldest destination: {coldestDestination.city} {coldestDestination.temp} °C</div>
+
+                    </div>
+                }
+
                 <div className='flex justify-center mb-5 w-full'>
                     <input
-                        className='w-1/2 me-3 input text-white  bg-transparent border-b-2 border-white focus:outline-none focus:border-blue-500'
+                        className='w-1/2 me-3 input shadow text-white bg-transparent border-b-2 border-white focus:outline-none focus:border-blue-500'
                         type="text"
                         placeholder='Enter your city'
                         value={city}
@@ -95,7 +144,7 @@ const Home = () => {
                         <button
                             onClick={() => setShowHistory(!showHistory)}
                             className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
-                            {showHistory ? 'Hide History' : 'Show History'}
+                            {showHistory ? <AiOutlineUp /> : <AiOutlineDown />}
                         </button>
                     </div>
 
@@ -116,12 +165,16 @@ const Home = () => {
                 </div>
             </div>
 
-            {showHistory && <div className='flex justify-center'>
-                {searchList.length > 0 && <SearchHistory searchList={searchList} />}
-            </div>}
+            {
+                showHistory && <div className='flex justify-center'>
+                    {searchList.length > 0 && <SearchHistory searchList={searchList} />}
+                </div>
+            }
 
-            {weatherData && <WeatherComp weatherData={weatherData} />}
-        </div>
+            <div className='h-3/5 flex justify-center'>
+                {weatherData && <WeatherComp weatherData={weatherData} />}
+            </div>
+        </div >
     )
 }
 
